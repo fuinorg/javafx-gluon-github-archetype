@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor name="org.fuin.archetypes.javafx-gluon-github-archetype">
+
+	<requiredProperties>
+		<requiredProperty key="groupId"><defaultValue>com.example</defaultValue></requiredProperty>
+		<requiredProperty key="artifactId"><defaultValue>abc-myapp</defaultValue></requiredProperty>
+		<requiredProperty key="version"><defaultValue>0.1.0-SNAPSHOT</defaultValue></requiredProperty>
+		<requiredProperty key="pkgName"><defaultValue>com.example.myapp</defaultValue></requiredProperty>
+		<requiredProperty key="appName"><defaultValue>MyApp</defaultValue></requiredProperty>
+		<requiredProperty key="appDescription"><defaultValue>My cool application</defaultValue></requiredProperty>
+		<requiredProperty key="company"><defaultValue>My Company Ltd.</defaultValue></requiredProperty>
+	</requiredProperties>
+
+	<fileSets>	    
+		<fileSet filtered="true">
+			<directory></directory>
+			<includes>
+				<include>pom.xml</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true">
+			<directory>src/main/java/__pkgPath__</directory>
+			<includes>
+				<include>__appName__.java</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true">
+			<directory></directory>
+			<includes>
+				<include>README.md</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="false">
+			<directory></directory>
+			<includes>
+				<include>mvnw</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="false">
+			<directory></directory>
+			<includes>
+				<include>mvnw.cmd</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="false">
+			<directory></directory>
+			<includes>
+				<include>_.gitignore</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="false">
+			<directory>src/main/resources/META-INF/substrate/macos</directory>
+			<includes>
+				<include>Partial-Info.plist</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="false">
+			<directory>src/main/resources/META-INF/substrate/ios</directory>
+			<includes>
+				<include>Partial-Info.plist</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="false">
+			<directory>src/main/resources/__pkgPath__</directory>
+			<includes>
+				<include>styles.css</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="false">
+			<directory>src/main/resources/__pkgPath__</directory>
+			<includes>
+				<include>openduke.png</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="false">
+			<directory></directory>
+			<includes>
+				<include>LICENSE</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="false">
+			<directory>.mvn/wrapper</directory>
+			<includes>
+				<include>maven-wrapper.properties</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="false">
+			<directory>.mvn/wrapper</directory>
+			<includes>
+				<include>maven-wrapper.jar</include>
+			</includes>
+		</fileSet>
+	</fileSets>
+
+</archetype-descriptor>

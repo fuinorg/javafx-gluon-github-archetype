@@ -1,0 +1,8 @@
+.*
+!.gitignore
+!.gitmodules
+!.gitkeep
+!.mvn
+!.github
+target
+*.log

@@ -1,0 +1,59 @@
+<marchetyper-config 
+    src-dir="../example"
+    dest-dir="../archetype"
+    binary-files=".*\.(jar|gitignore|gitkeep|cmd|plist|css|png|properties)|mvnw|LICENSE"
+    text-files="(.*\.(md|java))|pom\.xml"
+    custom-pom-file="custom-pom.xml"
+    post-generate-file="archetype-post-generate.groovy"
+    mask-dot-file="true">
+
+    <variables>
+        <variable name="pkgPath" source="pkgName" transform="DOT_2_SLASH" />
+    </variables>
+
+    <archetype group-id="org.fuin.archetypes" artifact-id="javafx-gluon-github-archetype" version="0.1.0-SNAPSHOT">
+        <property name="groupId" default="com.example" test="com.gluonhq.samples" />
+        <property name="artifactId" default="abc-myapp" test="hellogluon" />
+        <property name="version" default="0.1.0-SNAPSHOT" test="1.0.0-SNAPSHOT" />
+        <property name="pkgName" default="com.example.myapp" test="com.gluonhq.hello" />
+        <property name="appName" default="MyApp" test="HelloGluonApp" />
+        <property name="appDescription" default="My cool application" test="The HelloGluon app" />
+        <property name="company" default="My Company Ltd." test="Gluon" />
+    </archetype>
+     
+    <!-- Replacement definition for path elements -->
+    <path-mappings>
+        <mapping search="xyz-archetype" replace="__artifactId__" />
+        <mapping search="com/gluonhq/hello" replace="__pkgPath__" />
+        <mapping search="HelloGluonApp" replace="__appName__" />
+    </path-mappings>
+
+    <!-- Replacement definition for text files -->
+    <text-file-mappings>
+        <mapping search="&lt;groupId&gt;com.gluonhq.samples&lt;/groupId&gt;" replace="&lt;groupId&gt;${groupId}&lt;/groupId&gt;" file="pom\.xml" />
+        <mapping search="&lt;artifactId&gt;hellogluon&lt;/artifactId&gt;" replace="&lt;artifactId&gt;${artifactId}&lt;/artifactId&gt;" file="pom\.xml" />
+        <mapping search="&lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;" replace="&lt;version&gt;${version}&lt;/version&gt;" file="pom\.xml" />
+        <mapping search="HelloGluonApp" replace="${appName}" file="pom\.xml|.*\.java" />
+        <mapping search="HelloGluon" replace="${appName}" file="pom\.xml" />
+        <mapping search="The HelloGluon app" replace="${appDescription}" file="pom\.xml" />
+        <mapping search="com.gluonhq.samples.hellogluon" replace="${groupId}.${artifactId}" file="pom\.xml" />
+        <mapping search="&lt;vendor&gt;Gluon&lt;/vendor&gt;" replace="&lt;vendor&gt;${company}&lt;/vendor&gt;" file="pom\.xml" />
+        <mapping search="com.gluonhq.hello" replace="${pkgName}" file=".*\.java|pom.xml" />        
+        <mapping search="Hello, Gluon Mobile!" replace="Yes, Gluon Mobile!" file=".*\.java" />
+        <mapping search="/**\n * Copyright (c) 2019, 2021, Gluon\n * All rights reserved.\n *\n * Redistribution and use in source and binary forms, with or without\n * modification, are permitted provided that the following conditions are met:\n *     * Redistributions of source code must retain the above copyright\n * notice, this list of conditions and the following disclaimer.\n *     * Redistributions in binary form must reproduce the above copyright\n * notice, this list of conditions and the following disclaimer in the\n * documentation and/or other materials provided with the distribution.\n *     * Neither the name of Gluon, any associated website, nor the\n * names of its contributors may be used to endorse or promote products\n * derived from this software without specific prior written permission.\n *\n * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND\n * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED\n * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n * DISCLAIMED. IN NO EVENT SHALL GLUON BE LIABLE FOR ANY\n * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES\n * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;\n * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND\n * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS\n * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n */\n" replace="/**\n * Your header.\n */" file=".*\.java" />
+    </text-file-mappings>
+
+    <!-- Directories and files that will always be copied (also if part of 'file-excludes') -->
+    <file-includes>
+        <filter file=".*\.(gitignore|gitkeep)" />
+        <filter path=".*/\.mvn/.*" />
+    </file-includes>
+
+    <!-- Directories and files that will not be copied -->
+    <file-excludes>
+        <filter path=".*/\..*/.*"/>
+        <filter file="^\..*" />
+        <filter file=".*\.log" />
+    </file-excludes>
+
+</marchetyper-config>

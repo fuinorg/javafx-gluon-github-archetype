@@ -1,0 +1,206 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+#set( $delim = '.,_-/' )
+#set( $empty = '' )
+#set( $StringUtils = $empty.class.forName('org.codehaus.plexus.util.StringUtils') )
+#set( $pkgPath = $StringUtils.replace($pkgName, ".", "/") )
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>${groupId}</groupId>
+    <artifactId>${artifactId}</artifactId>
+    <version>${version}</version>
+    <packaging>jar</packaging>
+
+    <name>${appName}</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.release>11</maven.compiler.release>
+        <javafx.version>20</javafx.version>
+        <charm.version>6.2.3</charm.version>
+        <attach.version>4.0.18</attach.version>
+        <connect.version>2.0.1</connect.version>
+        <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
+        <gluonfx.maven.plugin.version>1.0.18</gluonfx.maven.plugin.version>
+        <main.class>${pkgName}.${appName}</main.class>
+        <app.identifier>${symbol_dollar}{main.class}</app.identifier>
+        <app.description>${appDescription}</app.description>
+        <package.type/>
+        <mac.app.store/>
+        <mac.signing.user.name/>
+        <bundle.version/>
+        <bundle.short.version/>
+        <version.code/>
+        <provided.keystore.path/>
+        <provided.keystore.password/>
+        <provided.key.alias/>
+        <provided.key.alias.password/>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${symbol_dollar}{javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gluonhq</groupId>
+            <artifactId>charm-glisten</artifactId>
+            <version>${symbol_dollar}{charm.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gluonhq.attach</groupId>
+            <artifactId>display</artifactId>
+            <version>${symbol_dollar}{attach.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gluonhq.attach</groupId>
+            <artifactId>lifecycle</artifactId>
+            <version>${symbol_dollar}{attach.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gluonhq.attach</groupId>
+            <artifactId>statusbar</artifactId>
+            <version>${symbol_dollar}{attach.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gluonhq.attach</groupId>
+            <artifactId>storage</artifactId>
+            <version>${symbol_dollar}{attach.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gluonhq.attach</groupId>
+            <artifactId>util</artifactId>
+            <version>${symbol_dollar}{attach.version}</version>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>Gluon</id>
+            <url>https://nexus.gluonhq.com/nexus/content/repositories/releases</url>
+        </repository>
+        <repository>
+            <id>snapshot</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>
+    
+    <pluginRepositories>
+        <pluginRepository>
+            <id>snapshot</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>${symbol_dollar}{javafx.maven.plugin.version}</version>
+                <configuration>
+                    <mainClass>${symbol_dollar}{main.class}</mainClass>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.gluonhq</groupId>
+                <artifactId>gluonfx-maven-plugin</artifactId>
+                <version>${symbol_dollar}{gluonfx.maven.plugin.version}</version>
+                <configuration>
+                    <verbose>true</verbose>
+                    <target>${symbol_dollar}{gluonfx.target}</target>
+                    <attachList>
+                        <list>display</list>
+                        <list>lifecycle</list>
+                        <list>statusbar</list>
+                        <list>storage</list>
+                    </attachList>
+                    <mainClass>${symbol_dollar}{main.class}</mainClass>
+                    <appIdentifier>${symbol_dollar}{app.identifier}</appIdentifier>
+                    <releaseConfiguration>
+                        <vendor>${company}</vendor>
+                        <description>${symbol_dollar}{app.description}</description>
+                        <packageType>${symbol_dollar}{package.type}</packageType>
+                        <!-- for macOS/iOS -->
+                        <macAppStore>${symbol_dollar}{mac.app.store}</macAppStore>
+                        <bundleShortVersion>${symbol_dollar}{bundle.short.version}</bundleShortVersion>
+                        <bundleVersion>${symbol_dollar}{bundle.version}</bundleVersion>
+                        <!-- for Android -->
+                        <versionCode>${symbol_dollar}{version.code}</versionCode>
+                        <providedKeyStorePath>${symbol_dollar}{provided.keystore.path}</providedKeyStorePath>
+                        <providedKeyStorePassword>${symbol_dollar}{provided.keystore.password}</providedKeyStorePassword>
+                        <providedKeyAlias>${symbol_dollar}{provided.key.alias}</providedKeyAlias>
+                        <providedKeyAliasPassword>${symbol_dollar}{provided.key.alias.password}</providedKeyAliasPassword>
+                    </releaseConfiguration>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>desktop</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <gluonfx.target>host</gluonfx.target>
+            </properties>
+        </profile>
+        <profile>
+            <id>mac</id>
+            <properties>
+                <package.type>pkg</package.type>
+                <mac.app.store>false</mac.app.store>
+                <bundle.version>${symbol_dollar}{env.GITHUB_RUN_NUMBER}</bundle.version>
+                <bundle.short.version>1.0</bundle.short.version>
+            </properties>
+        </profile>
+        <profile>
+            <id>macstore</id>
+            <properties>
+                <package.type>pkg</package.type>
+                <mac.app.store>true</mac.app.store>
+                <bundle.version>1.${symbol_dollar}{env.GITHUB_RUN_NUMBER}</bundle.version>
+                <bundle.short.version>1.6</bundle.short.version>
+            </properties>
+        </profile>
+        <profile>
+            <id>ios</id>
+            <properties>
+                <gluonfx.target>ios</gluonfx.target>
+                <bundle.version>${symbol_dollar}{env.GITHUB_RUN_NUMBER}</bundle.version>
+                <bundle.short.version>1.0</bundle.short.version>
+            </properties>
+        </profile>
+        <profile>
+            <id>android</id>
+            <properties>
+                <gluonfx.target>android</gluonfx.target>
+                <app.identifier>${groupId}.${artifactId}</app.identifier>
+                <version.code>${symbol_dollar}{env.GITHUB_RUN_NUMBER}</version.code>
+                <provided.keystore.path>${symbol_dollar}{env.GLUON_ANDROID_KEYSTOREPATH}</provided.keystore.path>
+                <provided.keystore.password>${symbol_dollar}{env.GLUON_ANDROID_KEYSTORE_PASSWORD}</provided.keystore.password>
+                <provided.key.alias>${symbol_dollar}{env.GLUON_ANDROID_KEYALIAS}</provided.key.alias>
+                <provided.key.alias.password>${symbol_dollar}{env.GLUON_ANDROID_KEYALIAS_PASSWORD}</provided.key.alias.password>
+            </properties>
+        </profile>
+        <profile>
+            <id>pi</id>
+            <properties>
+                <gluonfx.target>linux-aarch64</gluonfx.target>
+            </properties>
+        </profile>
+    </profiles>
+</project>
